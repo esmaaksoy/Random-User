@@ -14,22 +14,11 @@ const url = "https://randomuser.me/api/";
 const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 function App() {
-  const [data,setData]=useState({
-    userName:"",
-    userEmail:"",
-    userAge:"",
-    userStreet:"",
-    userPhone:"",
-    userPassword:""
-  })
-  const handleData=(e)=>{
-    setData({ ...data, [e.target.dataset.label]: e.target.value })
-  }
-  const [userName, setUserName] = useState("");
+ 
   const [user, setUser] = useState({
     name: "",
     email: "",
-    picture: "",
+    age: "",
     location: "",
     phone: "",
   });
@@ -46,14 +35,10 @@ function App() {
     fetchUsers();
   }, []);
 
-  const {
-    name: { first, last },
-  } = user;
+  const {name}=user
 
-  const handleMouseEnter = () => {
-    setUserName(`${first} ${last}`);
-  };
-console.log(data)
+ console.log(name)
+console.log(user)
   return (
     <main>
       <div className="block bcg-orange">
@@ -63,29 +48,29 @@ console.log(data)
         <div className="container">
           <img src={defaultImage} alt="random user" className="user-img" />
           <p className="user-title">My name is</p>
-          <p className="user-value">{userName}</p>
+          <p className="user-value"></p>
           <div className="values-list">
-            <button className="icon" data-label="name">
+            <button className="icon" name="name" >
               <img
                 src={womanSvg}
                 alt="user"
                 id="iconImg"
-                onMouseEnter={handleMouseEnter}
+             
               />
             </button>
-            <button className="icon" data-label="email">
+            <button className="icon" name="email" >
               <img src={mailSvg} alt="mail" id="iconImg" />
             </button>
-            <button className="icon" data-label="age">
+            <button className="icon" name="age" >
               <img src={womanAgeSvg} alt="age" id="iconImg" />
             </button>
-            <button className="icon" data-label="street">
+            <button className="icon" name="street" >
               <img src={mapSvg} alt="map" id="iconImg" />
             </button>
-            <button className="icon" data-label="phone">
+            <button className="icon" name="phone" >
               <img src={phoneSvg} alt="phone" id="iconImg" />
             </button>
-            <button className="icon" data-label="password">
+            <button className="icon" name="password" >
               <img src={padlockSvg} alt="lock" id="iconImg" />
             </button>
           </div>
