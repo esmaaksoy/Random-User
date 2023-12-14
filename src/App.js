@@ -14,8 +14,9 @@ const url = "https://randomuser.me/api/";
 const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 function App() {
-  const [show, setShow] = useState(false)
+
   const [user,setUser]=useState([])
+  const [addUser, setAddUser] = useState([])
   const fetchUsers = async () => {
     try {
       const response = await fetch(url);
@@ -28,15 +29,26 @@ function App() {
   useEffect(() => {
     fetchUsers();
   }, []);
-
-const [data, setData] = useState("");
+  const {name,email,dob,location,phone,login,picture} =user
+const [data, setData] = useState();
 
 const handleMouseEnter = (info) => {
-  setData(info )
-};
-const {name,email,dob,location,phone,login,picture} =user
-console.log(user)
+  setData(info)
 
+};
+
+
+
+
+const handleAdd =()=>{
+  setAddUser([...addUser,{
+    firstname: name?.first, 
+    email: email, 
+    phone: phone, 
+   age: dob?.age,
+  }]);
+
+}
   return (
     <main>
       <div className="block bcg-orange">
@@ -55,7 +67,7 @@ console.log(user)
                 id="iconImg"
               />
             </button>
-            <button className="icon" name="email" onMouseEnter={() => handleMouseEnter(email, "email")}>
+            <button className="icon" name="email" onMouseEnter={() => handleMouseEnter(email)}>
               <img src={mailSvg} alt="mail" id="iconImg" />
             </button>
             <button className="icon" name="age" onMouseEnter={() => handleMouseEnter(dob?.age)}>
@@ -75,7 +87,7 @@ console.log(user)
             <button className="btn" type="button" onClick={fetchUsers}>
               new user
             </button>
-            <button className="btn" type="button" onClick={()=>setShow(true)}>
+            <button className="btn" type="button" onClick={handleAdd}>
               add user
             </button>
           </div>
@@ -89,10 +101,10 @@ console.log(user)
                 <th className="th">Phone</th>
                 <th className="th">Age</th>
               </tr>
-             {show && <Table {...user}/>}
+             
             </thead>
             <tbody>
-              <tr className="body-tr"></tr>
+            {addUser.map(item => <Table {...item}/>)}
             </tbody>
           </table>
         </div>

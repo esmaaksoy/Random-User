@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Table = ({name,email,phone,dob}) => {
+const Table = ({firstname,email,phone,age}) => {
   return (
-    <tr>
-      <td>{name?.first}</td>
+    <tr className="body-tr">
+      <td>{firstname}</td>
       <td>{email}</td>
       <td>{phone}</td>
-      <td>{dob?.age}</td>
+      <td>{age}</td>
     </tr>
   )
 }
