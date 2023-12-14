@@ -9,19 +9,13 @@ import phoneSvg from "./assets/phone.svg";
 import padlockSvg from "./assets/padlock.svg";
 import cwSvg from "./assets/cw.svg";
 import Footer from "./components/footer/Footer";
-
+import Table from "./components/Table";
 const url = "https://randomuser.me/api/";
 const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 function App() {
- 
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    age: "",
-    location: "",
-    phone: "",
-  });
+  const [show, setShow] = useState(false)
+  const [user,setUser]=useState([])
   const fetchUsers = async () => {
     try {
       const response = await fetch(url);
@@ -35,10 +29,14 @@ function App() {
     fetchUsers();
   }, []);
 
-  const {name}=user
+const [data, setData] = useState("");
 
- console.log(name)
+const handleMouseEnter = (info) => {
+  setData(info )
+};
+const {name,email,dob,location,phone,login,picture} =user
 console.log(user)
+
   return (
     <main>
       <div className="block bcg-orange">
@@ -46,31 +44,30 @@ console.log(user)
       </div>
       <div className="block">
         <div className="container">
-          <img src={defaultImage} alt="random user" className="user-img" />
+          <img src={picture?.large} alt="random user" className="user-img" />
           <p className="user-title">My name is</p>
-          <p className="user-value"></p>
+          <p className="user-value">{data}</p>
           <div className="values-list">
-            <button className="icon" name="name" >
+            <button className="icon" name="name" onMouseEnter={() => handleMouseEnter(name?.first)}>
               <img
                 src={womanSvg}
                 alt="user"
                 id="iconImg"
-             
               />
             </button>
-            <button className="icon" name="email" >
+            <button className="icon" name="email" onMouseEnter={() => handleMouseEnter(email, "email")}>
               <img src={mailSvg} alt="mail" id="iconImg" />
             </button>
-            <button className="icon" name="age" >
+            <button className="icon" name="age" onMouseEnter={() => handleMouseEnter(dob?.age)}>
               <img src={womanAgeSvg} alt="age" id="iconImg" />
             </button>
-            <button className="icon" name="street" >
+            <button className="icon" name="street" onMouseEnter={() => handleMouseEnter(location?.street.name)}>
               <img src={mapSvg} alt="map" id="iconImg" />
             </button>
-            <button className="icon" name="phone" >
+            <button className="icon" name="phone" onMouseEnter={() => handleMouseEnter(phone)}>
               <img src={phoneSvg} alt="phone" id="iconImg" />
             </button>
-            <button className="icon" name="password" >
+            <button className="icon" name="password" onMouseEnter={() => handleMouseEnter(login?.password)}>
               <img src={padlockSvg} alt="lock" id="iconImg" />
             </button>
           </div>
@@ -78,7 +75,7 @@ console.log(user)
             <button className="btn" type="button" onClick={fetchUsers}>
               new user
             </button>
-            <button className="btn" type="button">
+            <button className="btn" type="button" onClick={()=>setShow(true)}>
               add user
             </button>
           </div>
@@ -87,10 +84,12 @@ console.log(user)
             <thead>
               <tr className="head-tr">
                 <th className="th">Firstname</th>
+           
                 <th className="th">Email</th>
                 <th className="th">Phone</th>
                 <th className="th">Age</th>
               </tr>
+             {show && <Table {...user}/>}
             </thead>
             <tbody>
               <tr className="body-tr"></tr>
