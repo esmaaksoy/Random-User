@@ -14,23 +14,46 @@ const url = "https://randomuser.me/api/";
 const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 function App() {
-
-  const [user,setUser]=useState([])
   const [addUser, setAddUser] = useState([])
+  const [user,setUser]=useState({
+    name: "",
+    email: "",
+    picture: "",
+    dob: "",
+    location: "",
+    phone: "",
+    gender: "",
+   
+  })
+  const {
+    name: {first,last},
+    email,
+    dob: { age },
+    location: { street},
+    phone,
+    picture,
+    login,
+   
+  } = user
+  const [data, setData] = useState(first);
+
   const fetchUsers = async () => {
     try {
       const response = await fetch(url);
       const users = await response.json();
       setUser(users.results[0]);
+      setData(users.results[0].name.first);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchUsers();
   }, []);
-  const {name,email,dob,location,phone,login,picture} =user
-const [data, setData] = useState();
+
+ 
+
 
 const handleMouseEnter = (info) => {
   setData(info)
@@ -38,14 +61,12 @@ const handleMouseEnter = (info) => {
 };
 
 
-
-
 const handleAdd =()=>{
   setAddUser([...addUser,{
-    firstname: name?.first, 
+    firstname: first, 
     email: email, 
     phone: phone, 
-   age: dob?.age,
+   age: age,
   }]);
 
 }
@@ -60,26 +81,26 @@ const handleAdd =()=>{
           <p className="user-title">My name is</p>
           <p className="user-value">{data}</p>
           <div className="values-list">
-            <button className="icon" name="name" onMouseEnter={() => handleMouseEnter(name?.first)}>
+            <button className="icon" data-label="name" onMouseEnter={() => handleMouseEnter(first)}>
               <img
                 src={womanSvg}
                 alt="user"
                 id="iconImg"
               />
             </button>
-            <button className="icon" name="email" onMouseEnter={() => handleMouseEnter(email)}>
+            <button className="icon" data-label="email" onMouseEnter={() => handleMouseEnter(email)}>
               <img src={mailSvg} alt="mail" id="iconImg" />
             </button>
-            <button className="icon" name="age" onMouseEnter={() => handleMouseEnter(dob?.age)}>
+            <button className="icon" data-label="age" onMouseEnter={() => handleMouseEnter(age)}>
               <img src={womanAgeSvg} alt="age" id="iconImg" />
             </button>
-            <button className="icon" name="street" onMouseEnter={() => handleMouseEnter(location?.street.name)}>
+            <button className="icon" data-label="street" onMouseEnter={() => handleMouseEnter(street.name)}>
               <img src={mapSvg} alt="map" id="iconImg" />
             </button>
-            <button className="icon" name="phone" onMouseEnter={() => handleMouseEnter(phone)}>
+            <button className="icon" data-label="phone" onMouseEnter={() => handleMouseEnter(phone)}>
               <img src={phoneSvg} alt="phone" id="iconImg" />
             </button>
-            <button className="icon" name="password" onMouseEnter={() => handleMouseEnter(login?.password)}>
+            <button className="icon" data-label="password" onMouseEnter={() => handleMouseEnter(login?.password)}>
               <img src={padlockSvg} alt="lock" id="iconImg" />
             </button>
           </div>
