@@ -38,7 +38,8 @@ function App() {
       const response = await fetch(url);
       const users = await response.json();
       setUser(users.results[0]);
-      setData(`${users.results[0].name.first} ${users.results[0].name.last}`);
+   
+      handleMouseEnter(`${users.results[0].name.first} ${users.results[0].name.last}`,"name")
     } catch (error) {
       console.log(error);
     }
