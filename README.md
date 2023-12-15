@@ -1,75 +1,26 @@
-<p>Clarusway<img align="right"
-  src="https://secure.meetupstatic.com/photos/event/3/1/b/9/600_488352729.jpeg"  width="15px"></p>
+# Random User
+This project is a React application that displays and adds random users. Users can be managed with customized notifications using the SweetAlert library.
+## Screenshots
+![Project snapshot](./random.gif) 
 
-# Random User App
+[Random User Live Page](https://random-user-esma.netlify.app/)
 
+## Tech/framework used
+<b>Built with</b> <br>
+<a href="#"><img src="https://w7.pngwing.com/pngs/403/269/png-transparent-react-react-native-logos-brands-in-colors-icon-thumbnail.png" alt="react" width="40"/></a> 
+<a href="#"><img src="https://sweetalert2.github.io/images/sweetalert2-social.png" alt="sweetalert2" width="40"/></a> 
+
+## How to use?
+Hover over the icons to view relevant information.<br> 
+Add new users with the ability to check for existing users.
 ## Description
+In the project directory, you can run:
+### `npm start`
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Project aims to create a Random User App.
+##API Reference
+https://randomuser.me/api/
 
-## Problem Statement
 
-- We are adding a new project to our portfolios. So you and your colleagues have started to work on the project.
-
-## Project Skeleton
-
-```
-03 - Random User App
-|
-|----readme.md         # Given to the students (Definition of the project)
-SOLUTION
-├── public
-│     └── index.html
-├── src
-│    ├── assets.js
-│    │       └── [images]
-│    ├── App.js
-│    ├── App.css
-│    ├── index.js
-│    └── index.css
-├── package.json
-└── yarn.lock
-```
-
-## Expected Outcome
-
-![Project Snapshot](./random-user-app.gif)
-
-## Objective
-
-Build a Random User App using ReactJS.
-
-### At the end of the project, following topics are to be covered;
-
-- HTML
-
-- CSS
-
-- JS
-
-- ReactJS
-
-### At the end of the project, students will be able to;
-
-- Improve coding skills within HTML & CSS & JS & ReactJS.
-
-- Use git commands (push, pull, commit, add etc.) and Github as Version Control System.
-
-## Steps to Solution
-
-- Step 1: Create React App using `yarn && yarn start`.
-
-- Step 2: Build Random User App fetching data from `https://randomuser.me/api/` using `fetch` or `axios`.
-
-- Step 3: Push your application into your own public repo on Github.
-
-- Step 4: Add project gif to your project and README.md file.
-
-## Notes
-
-- You can add additional functionalities and design to your app.
-
-**<p align="center">&#9786; Happy Coding &#9997;</p>**
-## Demo
-
-[Live](https://randomuser-two-cw.vercel.app/)
+ 
