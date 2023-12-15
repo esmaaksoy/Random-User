@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import mailSvg from "./assets/mail.svg";
-
 import womanSvg from "./assets/woman.svg";
-
 import womanAgeSvg from "./assets/growing-up-woman.svg";
 import mapSvg from "./assets/map.svg";
 import phoneSvg from "./assets/phone.svg";
 import padlockSvg from "./assets/padlock.svg";
 import Table from "./components/Table";
+import Swal from 'sweetalert2'
 const url = "https://randomuser.me/api/";
 
 
@@ -32,14 +31,14 @@ function App() {
     picture,
     login,
   } = user;
-  const [data, setData] = useState(`${first} ${last}`);
+  const [data, setData] = useState()
 
   const fetchUsers = async () => {
     try {
       const response = await fetch(url);
       const users = await response.json();
       setUser(users.results[0]);
-      setData(users.results[0].name.first);
+      setData(`${users.results[0].name.first} ${users.results[0].name.last}`);
     } catch (error) {
       console.log(error);
     }
@@ -55,6 +54,15 @@ function App() {
   };
 
   const handleAdd = () => {
+  if(addUser.some((user)=>user.email === email)){
+    Swal.fire({
+      text: "You cannot add the same user twice.",
+      icon: 'warning',
+      iconColor:"#041E31",
+      confirmButtonText: 'Ok',
+      confirmButtonColor: "#041E31",
+    })
+  }else{
     setAddUser([
       ...addUser,
       {
@@ -64,6 +72,8 @@ function App() {
         age: age,
       },
     ]);
+  }
+  
   };
 console.log(last)
   return (
