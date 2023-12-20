@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import mailSvg from "./assets/mail.svg";
+import manSvg from "./assets/man.svg";
 import womanSvg from "./assets/woman.svg";
+import manAgeSvg from "./assets/growing-up-man.svg";
 import womanAgeSvg from "./assets/growing-up-woman.svg";
 import mapSvg from "./assets/map.svg";
 import phoneSvg from "./assets/phone.svg";
 import padlockSvg from "./assets/padlock.svg";
+import cwSvg from "./assets/cw.svg";
 import Table from "./components/Table";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 const url = "https://randomuser.me/api/";
-
-
 function App() {
+  const [labels, setLabels] = useState();
+  const [data, setData] = useState();
   const [addUser, setAddUser] = useState([]);
-  const [labels, setLabels] = useState("name");
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -21,6 +23,7 @@ function App() {
     location: "",
     phone: "",
     gender: "",
+    login: "",
   });
   const {
     name: { first, last },
@@ -28,23 +31,23 @@ function App() {
     dob: { age },
     location: { street },
     phone,
-    picture,
-    login,
+    picture: { large },
+    login: { password },
+    gender,
   } = user;
-  const [data, setData] = useState()
-
   const fetchUsers = async () => {
     try {
       const response = await fetch(url);
       const users = await response.json();
       setUser(users.results[0]);
-   
-      handleMouseEnter(`${users.results[0].name.first} ${users.results[0].name.last}`,"name")
+      handleMouseEnter(
+        `${users.results[0].name.first} ${users.results[0].name.last}`,
+        "name"
+      );
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -63,20 +66,20 @@ function App() {
       confirmButtonText: 'Ok',
       confirmButtonColor: "#041E31",
     })
-  }else{
-    setAddUser([
-      ...addUser,
-      {
-        firstname: first,
-        email: email,
-        phone: phone,
-        age: age,
-      },
-    ]);
+ }else{
+      setAddUser([
+        ...addUser,
+        {
+          firstname: `${first} ${last}`,
+          email: email,
+          phone: phone,
+          age: age,
+        },
+      ]);
   }
   
   };
-console.log(last)
+
   return (
     <main>
       <div className="block bcg-orange">
@@ -84,7 +87,7 @@ console.log(last)
       </div>
       <div className="block">
         <div className="container">
-          <img src={picture?.large} alt="random user" className="user-img" />
+          <img src={large} alt="random user" className="user-img" />
           <p className="user-title">My {labels} is</p>
           <p className="user-value">{data}</p>
           <div className="values-list">
@@ -93,7 +96,7 @@ console.log(last)
               data-label="name"
               onMouseEnter={() => handleMouseEnter(`${first} ${last}`, "name")}
             >
-              <img src={womanSvg} alt="user" id="iconImg" />
+              <img src={gender === "female" ?  womanSvg : manSvg} alt="user" id="iconImg" />
             </button>
             <button
               className="icon"
@@ -107,7 +110,7 @@ console.log(last)
               data-label="age"
               onMouseEnter={() => handleMouseEnter(age, "age")}
             >
-              <img src={womanAgeSvg} alt="age" id="iconImg" />
+              <img src={gender === "female" ? womanAgeSvg : manAgeSvg} alt="age" id="iconImg" />
             </button>
             <button
               className="icon"
@@ -126,7 +129,7 @@ console.log(last)
             <button
               className="icon"
               data-label="password"
-              onMouseEnter={() => handleMouseEnter(login?.password, "password")}
+              onMouseEnter={() => handleMouseEnter(password, "password")}
             >
               <img src={padlockSvg} alt="lock" id="iconImg" />
             </button>
@@ -144,7 +147,6 @@ console.log(last)
             <thead>
               <tr className="head-tr">
                 <th className="th">Firstname</th>
-
                 <th className="th">Email</th>
                 <th className="th">Phone</th>
                 <th className="th">Age</th>
